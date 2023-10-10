@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="quiz.css">
+</head>
+<body>
+    <h1>Quiz</h1>
+<div id="main">
+    
+    <div id="container">
+       
+        <div id="question"></div>
+        <div id="options"></div>
+       
+    </div>
+    <button onclick="iscorrect()" id="iscorrect">submit</button>
+</div>
+    <div id="score"></div>
+
+
+    <script>
+ var obj=[{"ques":"Where i am from","mcq":[{"a":"Harayana","correct":false},{"a":"Punjab","correct":true},{"a":"Shimla","correct":false},{"a":"Delhi","correct":false}]},
+          {"ques":"What is my fav outfit","mcq":[{"a":"Western","correct":false},{"a":"Sari","correct":false},{"a":"Suit","correct":true},{"a":"Jeans-top","correct":false}]},
+{"ques":"What i love to do","mcq":[{"a":"Gidda","correct":false},{"a":"Movie","correct":false},{"a":"Shopping","correct":true},{"a":"None","correct":false}]},
+{"ques":"Fav song","mcq":[{"a":"Channa mera ","correct":false},{"a":"Aknh kashni","correct":false},{"a":"Tere bin","correct":true},{"a":"Yarian","correct":false}]}
+]
+
+
+var main=document.querySelector("#main");
+var container=document.querySelector("#container");
+var ques=document.querySelector("#question");
+var div=document.querySelector("#options");
+div.setAttribute("id","first");
+var btn=document.querySelector("#btn");
+var Total=document.querySelector("#score");
+score=0;
+var currentQues=0;
+
+ function question(){
+    //var div=document.querySelector("#options");
+    ques.innerHTML=`Q${currentQues+1}. ${obj[currentQues].ques}:<br><br>`;
+    div.innerHTML="";
+    for(let i=0;i<obj[currentQues].mcq.length;i++){
+        div.innerHTML+=`<input type="radio" name="ans" value="${obj[currentQues].mcq[i].a}">${obj[currentQues].mcq[i].a}<br><br>`;
+    container.append(div);
+    }
+}
+
+
+   question();
+
+
+   function iscorrect(){
+   if(currentQues<obj.length){
+    const selectedans=document.querySelector('input[name=ans]:checked').value;
+
+  for(let i=0;i<obj[currentQues].mcq.length;i++){
+    if(obj[currentQues].mcq[i].correct && obj[currentQues].mcq[i].a ==selectedans){
+        score++;
+
+    }
+  }
+  currentQues++;
+  nextQues();
+   }
+   }
+
+
+   function nextQues(){
+    if(currentQues<obj.length){
+        question();
+    }
+    else{
+        // ques.remove();
+        // btn.remove();
+        // div.remove();
+        main.remove();
+       
+       Total.innerHTML=`Final Score is : ${score}`;
+      // alert(score);
+    }
+
+   }
+    </script>
+</body>
+</html>
